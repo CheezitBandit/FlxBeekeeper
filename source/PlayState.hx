@@ -27,12 +27,10 @@ class PlayState extends FlxState
 	{
         text = new FlxText(50, 50, 200, "You won!", 18, true);
 		add(text);
-		// FlxG.state.active = false;
-		// haxe.Timer.delay(function()
-		// {
-		// 	FlxG.state.active = true;
-		// }, 5000);
-		// FlxG.resetGame();
+		haxe.Timer.delay(function()
+		{
+			FlxG.resetGame();
+		}, 3000);
     }
 
 	override public function update(elapsed:Float):Void
