@@ -14,6 +14,7 @@ class PlayState extends FlxState
 	private var honey:Hive; // The target
 	private var hive:FlxSprite; // The hive design around the honeycomb target
 	private var text:FlxText; // The winning text object that is displayed on the screen
+	private var bee:Bee; // The enemy object
 	/**
 	 *  The use of the target X and Y variables allow the position of the honeycomb
 	 *  and the surrounding hive to be changed
@@ -36,17 +37,28 @@ class PlayState extends FlxState
 		hive.loadGraphic(AssetPaths.hive__png, false, 10, 20);
 		add(hive);
 
+		bee = new Bee(targetX + 50, targetY + 50);
+		add(bee);
+
 		player = new Player(300, 400);
 		add(player);
 	}
 	
 	/**
-	 *  On winning conditions, the text is displayed on the screen. The game is reset after 3 seconds.
+	 *  On end game conditions, the corresponding text is displayed on the screen.
+	 *  The game is reset after 3 seconds.
 	 * 
 	 */
-	public function win(player, honey):Void
+	public function endGame(player, obj):Void
 	{
-        text = new FlxText(50, 50, 200, "You won!", 18, true);
+		if (Type.getClassName(Type.getClass(obj)) == "Hive")
+		{
+			text = new FlxText(50, 50, 200, "You won!", 18, true);
+		}
+        else
+		{
+			text = new FlxText(50, 50, 200, "You were stung!", 18, true);
+		}
 		add(text);
 		haxe.Timer.delay(function()
 		{
@@ -61,7 +73,8 @@ class PlayState extends FlxState
 	 */
 	override public function update(elapsed:Float):Void
 	{
-		FlxG.overlap(player, honey, win);
+		FlxG.overlap(player, honey, endGame);
+		FlxG.overlap(player, bee, endGame);
 
 		super.update(elapsed);
 	}
