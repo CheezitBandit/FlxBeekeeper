@@ -6,12 +6,17 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
+import flixel.math.FlxRandom;
 
 /**
  *  @author Jess Geiger
  */
  class Bee extends FlxSprite
  {
+
+    private var newX:Int;
+    private var newY:Int;
+    public var rand:FlxRandom = new FlxRandom();
 
     /**
      *  Create new honeycomb target object at requested parameters
@@ -26,9 +31,30 @@ import flixel.input.keyboard.FlxKey;
         loadGraphic(AssetPaths.bee__png, false, 10, 20);
     }
 
+    public function beeBuzz(elapsed):Void
+    {
+        newX = rand.int(-3, 3);
+        newY = rand.int(-3, 3);
+
+        x += newX;
+        y += newY;
+        // Ensure bee is within bounds of window
+        if (x > 1000 || x < 0)
+        {
+            x -= newX;
+        }
+        if (y > 800 || y < 0)
+        {
+            y -= newY;
+        }
+
+
+    }
+
 
     public override function update(elapsed:Float):Void
     {
+        beeBuzz(elapsed);
         super.update(elapsed);
     }
 
