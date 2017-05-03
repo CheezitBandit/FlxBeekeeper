@@ -7,6 +7,8 @@ import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxRandom;
+import flixel.math.FlxMath;
+import flixel.group.FlxGroup;
 
 /**
  *  @author Jess Geiger
@@ -16,7 +18,10 @@ import flixel.math.FlxRandom;
 
     private var newX:Int;
     private var newY:Int;
+    private var dist:Int;
     public var rand:FlxRandom = new FlxRandom();
+    private var difX:Float;
+    private var difY:Float;
 
     /**
      *  Create new honeycomb target object at requested parameters
@@ -31,30 +36,73 @@ import flixel.math.FlxRandom;
         loadGraphic(AssetPaths.bee__png, false, 10, 20);
     }
 
-    public function beeBuzz(elapsed):Void
+    public function beeBuzz(elapsed, bee:Bee):Void
     {
         newX = rand.int(-3, 3);
         newY = rand.int(-3, 3);
 
-        x += newX;
-        y += newY;
+        bee.x += newX;
+        bee.y += newY;
         // Ensure bee is within bounds of window
-        if (x > 1000 || x < 0)
+        if (bee.x > 1200 || bee.x < 0)
         {
-            x -= newX;
+            bee.x -= newX;
         }
-        if (y > 800 || y < 0)
+        if (bee.y > 800 || bee.y < 0)
         {
-            y -= newY;
+            bee.y -= newY;
         }
-
-
     }
 
 
-    public override function update(elapsed:Float):Void
+    public function beeDive(elapsed:Float, player:Player, bee:Bee):Void
     {
-        beeBuzz(elapsed);
+        trace("So close!");
+
+        difX = player.x - bee.x;
+        difY = player.y - bee.y;
+
+        if (difX > 0) //If player is below the bee
+        {
+            newX = rand.int(0, 3);
+        }
+        else if (difY < 0) //If bee is below the player
+        {
+            newX = rand.int(-3, 0);
+        }
+        else //If bee and player are on the same X position
+        {
+            newX = rand.int(-3, 3);
+        }
+
+        if (difY > 0) //If player is to the right of the bee
+        {
+            newY = rand.int(0, 3);
+        }
+        else if (difY < 0) //If player is to the left of the bee
+        {
+            newY = rand.int(-3, 0);
+        }
+        else //If bee and player are on the same Y position
+        {
+            newY = rand.int(-3, 3);
+        }
+
+        bee.x += newX;
+        bee.y += newY;
+        // Ensure bee is within bounds of window
+        if (bee.x > 1500 || bee.x < 0)
+        {
+            bee.x -= newX;
+        }
+        if (bee.y > 1000 || bee.y < 0)
+        {
+            bee.y -= newY;
+        }
+    }
+
+    public override function update(elapsed):Void
+    {
         super.update(elapsed);
     }
 

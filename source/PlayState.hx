@@ -1,12 +1,12 @@
 package;
 
 import flixel.FlxState;
-import flixel.FlxObject;
-import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.group.FlxGroup;
+import flixel.math.FlxMath;
+import flixel.math.FlxRandom;
 
 class PlayState extends FlxState
 {
@@ -15,13 +15,18 @@ class PlayState extends FlxState
 	private var hive:FlxSprite; // The hive design around the honeycomb target
 	private var text:FlxText; // The winning text object that is displayed on the screen
 	private var bee:Bee; // The enemy object
+	private var done:Bool;
+
 	/**
 	 *  The use of the target X and Y variables allow the position of the honeycomb
 	 *  and the surrounding hive to be changed
 	 */
 	private var targetX:Int = 300;
 	private var targetY:Int = 50;
-
+	private var dist:Int;
+	public static var hiveSize:Int;
+	public var beeHive:FlxTypedGroup<Bee>;
+    public var rand:FlxRandom = new FlxRandom();
 	/**
 	 *  Creates the starting board with the honeycomb target, hive graphic, and player
 	 *  
@@ -30,6 +35,10 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		trace(hiveSize);
+
+		beeHive = new FlxTypedGroup<Bee>();
+
 		honey = new Hive(targetX, targetY);
 		add(honey);
 
@@ -37,8 +46,13 @@ class PlayState extends FlxState
 		hive.loadGraphic(AssetPaths.hive__png, false, 10, 20);
 		add(hive);
 
-		bee = new Bee(targetX + 50, targetY + 50);
-		add(bee);
+		for (i in 0...hiveSize)
+		{
+			bee = new Bee(targetX + (rand.int(-5, 5)*20), targetY + (rand.int(-1, 5)*20));
+			trace("Bee" + i + " x " + bee.x + " y " + bee.y);
+			add(bee);
+			beeHive.add(bee);
+		}
 
 		player = new Player(300, 400);
 		add(player);
@@ -51,6 +65,7 @@ class PlayState extends FlxState
 	 */
 	public function endGame(player, obj):Void
 	{
+		done = true;
 		if (Type.getClassName(Type.getClass(obj)) == "Hive")
 		{
 			text = new FlxText(50, 50, 200, "You won!", 18, true);
@@ -73,8 +88,25 @@ class PlayState extends FlxState
 	 */
 	override public function update(elapsed:Float):Void
 	{
+		if (done) {
+			return;
+		}
+
 		FlxG.overlap(player, honey, endGame);
-		FlxG.overlap(player, bee, endGame);
+
+		for (i in 0...beeHive.length) 
+        {
+			FlxG.overlap(player, beeHive.members[i], endGame);
+            dist = FlxMath.distanceBetween(player, beeHive.members[i]);
+            if (dist < 100)
+			{
+				bee.beeDive(elapsed, player, beeHive.members[i]);
+			}
+			else
+			{
+				bee.beeBuzz(elapsed, beeHive.members[i]);
+			}
+        }
 
 		super.update(elapsed);
 	}
