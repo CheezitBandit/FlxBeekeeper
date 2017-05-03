@@ -21,12 +21,12 @@ class PlayState extends FlxState
 	 *  The use of the target X and Y variables allow the position of the honeycomb
 	 *  and the surrounding hive to be changed
 	 */
-	private var targetX:Int = 300;
-	private var targetY:Int = 50;
 	private var dist:Int;
 	public static var hiveSize:Int;
 	public var beeHive:FlxTypedGroup<Bee>;
     public var rand:FlxRandom = new FlxRandom();
+	public static var targetX:Int;
+	public static var targetY:Int;
 	/**
 	 *  Creates the starting board with the honeycomb target, hive graphic, and player
 	 *  
@@ -35,11 +35,9 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		trace(hiveSize);
-
 		beeHive = new FlxTypedGroup<Bee>();
 
-		honey = new Hive(targetX, targetY);
+		honey = new Hive();
 		add(honey);
 
 		hive = new FlxSprite(targetX - 83, targetY - 38);
@@ -68,12 +66,13 @@ class PlayState extends FlxState
 		done = true;
 		if (Type.getClassName(Type.getClass(obj)) == "Hive")
 		{
-			text = new FlxText(50, 50, 200, "You won!", 18, true);
+			text = new FlxText(0, 0, 200, "You won!", 18, true);
 		}
         else
 		{
-			text = new FlxText(50, 50, 200, "You were stung!", 18, true);
+			text = new FlxText(0, 0, 200, "You were stung!", 18, true);
 		}
+		text.screenCenter();
 		add(text);
 		haxe.Timer.delay(function()
 		{
@@ -98,7 +97,7 @@ class PlayState extends FlxState
         {
 			FlxG.overlap(player, beeHive.members[i], endGame);
             dist = FlxMath.distanceBetween(player, beeHive.members[i]);
-            if (dist < 100)
+            if (dist < 75)
 			{
 				bee.beeDive(elapsed, player, beeHive.members[i]);
 			}

@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.input.keyboard.FlxKey;
+import flixel.math.FlxRandom;
 
 /**
  *  @author Jess Geiger
@@ -13,6 +14,7 @@ import flixel.input.keyboard.FlxKey;
  class Hive extends FlxSprite
  {
 
+    public var rand:FlxRandom = new FlxRandom();
     /**
      *  Create new honeycomb target object at requested parameters
      *  
@@ -20,8 +22,12 @@ import flixel.input.keyboard.FlxKey;
      *  @param   Y is the Y position of the object
      *  @param   SimpleGraphic is an optional argument which isn't used
      */
-    public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+    public function new(?X:Int=0, ?Y:Int=0, ?SimpleGraphic:FlxGraphicAsset)
     {
+        X = rand.int(50, 800);
+        Y = rand.int(25, 100);
+        PlayState.targetX = X;
+        PlayState.targetY = Y;
         super(X, Y, SimpleGraphic);
         loadGraphic(AssetPaths.honeycomb__png, false, 10, 20);
     }

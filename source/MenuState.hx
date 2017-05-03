@@ -15,23 +15,28 @@ class MenuState extends FlxState
     {
         super.create();
 
-        var title:FlxText = new FlxText(200, 50, 0, "Beekeeper", 48, true);
+        var title:FlxText = new FlxText(0, 50, 0, "Beekeeper", 48, true);
         title.borderStyle = OUTLINE;
         title.borderColor = FlxColor.YELLOW;
         title.borderSize = 2;
         title.color = FlxColor.BLACK;
+        title.screenCenter(X);
         add(title);
         
-        var text:FlxText = new FlxText(50, 200, 0, "Difficulty:", 18, true);
+        var text:FlxText = new FlxText(0, 200, 0, "Difficulty:", 18, true);
+        text.screenCenter(X);
         add(text);
         
-        var easy:FlxButton = new FlxButton(50, 250, "Easy", EasyPlayState);
+        var easy:FlxButton = new FlxButton(0, 250, "Easy", EasyPlayState);
+        easy.screenCenter(X);
         add(easy);
 
-        var medium:FlxButton = new FlxButton(50, 300, "Medium", MediumPlayState);
+        var medium:FlxButton = new FlxButton(0, 300, "Medium", MediumPlayState);
+        medium.screenCenter(X);
         add(medium);
 
-        var hard:FlxButton = new FlxButton(50, 350, "Hard", HardPlayState);
+        var hard:FlxButton = new FlxButton(0, 350, "Hard", HardPlayState);
+        hard.screenCenter(X);
         add(hard);
     }
 

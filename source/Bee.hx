@@ -57,8 +57,6 @@ import flixel.group.FlxGroup;
 
     public function beeDive(elapsed:Float, player:Player, bee:Bee):Void
     {
-        trace("So close!");
-
         difX = player.x - bee.x;
         difY = player.y - bee.y;
 
