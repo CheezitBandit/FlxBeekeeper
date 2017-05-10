@@ -12,6 +12,8 @@ import flixel.input.keyboard.FlxKey;
  class Player extends FlxSprite
  {
     private var speed:Int = 1;
+    private var oldX:Float;
+    private var oldY:Float;
     public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
     {
         super(X, Y, SimpleGraphic);
@@ -26,6 +28,8 @@ import flixel.input.keyboard.FlxKey;
      */
     public function movePlayer():Void
     {
+        oldX = x;
+        oldY = y;
         if (FlxG.keys.anyPressed([FlxKey.SHIFT]))
         {
             speed = 2;
@@ -51,6 +55,15 @@ import flixel.input.keyboard.FlxKey;
         {
             y = y + speed;
         }
+        if (x > (PlayState.width - 20) || x < 0)
+        {
+            x = oldX;
+        }
+        if (y > (PlayState.height - 20) || y < 0)
+        {
+            y = oldY;
+        }
+
     }
 
     public override function update(elapsed:Float):Void

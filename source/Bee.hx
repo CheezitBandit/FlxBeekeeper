@@ -44,13 +44,15 @@ import flixel.group.FlxGroup;
         bee.x += newX;
         bee.y += newY;
         // Ensure bee is within bounds of window
-        if (bee.x > 1200 || bee.x < 0)
+       if (bee.x > (PlayState.width - 20) || bee.x < 0)
         {
             bee.x -= newX;
+            trace("Too far");
         }
-        if (bee.y > 800 || bee.y < 0)
+        if (bee.y > (PlayState.height - 20) || bee.y < 0)
         {
-            bee.y -= newY;
+            bee.y -=newY;
+            trace("Too far!");
         }
     }
 

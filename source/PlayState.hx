@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSpriteUtil;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
@@ -7,6 +8,9 @@ import flixel.FlxG;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxRandom;
+import flixel.math.FlxRect;
+import flixel.util.FlxColor;
+import flixel.util.FlxCollision;
 
 class PlayState extends FlxState
 {
@@ -16,6 +20,8 @@ class PlayState extends FlxState
 	private var text:FlxText; // The winning text object that is displayed on the screen
 	private var bee:Bee; // The enemy object
 	private var done:Bool;
+	public static var width:Int;
+	public static var height:Int;
 
 	/**
 	 *  The use of the target X and Y variables allow the position of the honeycomb
@@ -27,6 +33,8 @@ class PlayState extends FlxState
     public var rand:FlxRandom = new FlxRandom();
 	public static var targetX:Int;
 	public static var targetY:Int;
+	private var boundary:FlxSprite;
+	public static var worldBounds:FlxGroup;
 	/**
 	 *  Creates the starting board with the honeycomb target, hive graphic, and player
 	 *  
@@ -34,6 +42,20 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
+		width = FlxG.width;
+		height = FlxG.height;
+
+		// var boundary = new FlxSprite();
+		// boundary.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT);
+		// var lineStyle:LineStyle = { thickness: 8, color: FlxColor.YELLOW };
+		// FlxSpriteUtil.drawRect(boundary, 0, 0, FlxG.width, FlxG.height, FlxColor.TRANSPARENT, lineStyle);
+		// boundary.solid = boundary.immovable = true;
+		// add(boundary);
+
+		// FlxG.worldBounds.set(FlxG.width, FlxG.height);
+
+		// var worldBounds = FlxCollision.createCameraWall(FlxG.camera, false, 2, false);
+		// add(worldBounds);
 
 		beeHive = new FlxTypedGroup<Bee>();
 
@@ -53,6 +75,7 @@ class PlayState extends FlxState
 		}
 
 		player = new Player(300, 400);
+		// FlxSpriteUtil.bound(player, 0, FlxG.width, 0, FlxG.height);
 		add(player);
 	}
 	
@@ -90,6 +113,9 @@ class PlayState extends FlxState
 		if (done) {
 			return;
 		}
+
+		// FlxG.collide(worldBounds, player);
+		// FlxG.collide(worldBounds, beeHive);
 
 		FlxG.overlap(player, honey, endGame);
 

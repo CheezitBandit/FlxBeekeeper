@@ -15,6 +15,7 @@ import flixel.math.FlxRandom;
  {
 
     public var rand:FlxRandom = new FlxRandom();
+    private var yHeight:Int;
     /**
      *  Create new honeycomb target object at requested parameters
      *  
@@ -24,8 +25,9 @@ import flixel.math.FlxRandom;
      */
     public function new(?X:Int=0, ?Y:Int=0, ?SimpleGraphic:FlxGraphicAsset)
     {
-        X = rand.int(50, 800);
-        Y = rand.int(25, 100);
+        
+        X = rand.int(83, FlxG.width - 83);
+        Y = rand.int(38, Std.int(FlxG.height/2) - 38);
         PlayState.targetX = X;
         PlayState.targetY = Y;
         super(X, Y, SimpleGraphic);
