@@ -12,15 +12,19 @@ import flixel.math.FlxRandom;
  */
  class Flower extends FlxSprite
  {
-    private var randX:Int = 0;
-    private var randY:Int = 0;
 
+    public var isPresent:Bool;
     public var rand:FlxRandom = new FlxRandom();
 
-    public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset)
+    public function new(?X:Float=0, ?Y:Float=0, ?isPresent:Bool, ?SimpleGraphic:FlxGraphicAsset)
     {
         super(X, Y, SimpleGraphic);
         makeGraphic(15, 30, FlxColor.PURPLE);
+    }
+    
+    public function collectFlower(plyr:Player, flwr:Flower):Void
+    {
+		trace("Picked up flower"); //Doesn't work
     }
 
     public override function update(elapsed:Float):Void

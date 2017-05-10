@@ -93,10 +93,7 @@ class PlayState extends FlxState
 		}, 3000);
     }
 
-	public function collectFlower(player, flower):Void
-    {
-		trace("Picked up flower"); //Doesn't work
-    }
+
 
 	/**
 	 *  Update map based on changes made during the last cycle
@@ -110,14 +107,24 @@ class PlayState extends FlxState
 		}
 
         flowerSpawn++;
-        if (flowerSpawn == 100) {
-            var flower = new Flower(rand.int(5, FlxG.width - 5), rand.int(5, FlxG.height - 5));
-            add(flower);
+        if (flowerSpawn == 500) {
+            // flowerSpawn = 0;
+			flower = new Flower(rand.int(5, FlxG.width - 5), rand.int(5, FlxG.height - 5));
+			add(flower);
             trace("Flower added");
         }
 
 		FlxG.overlap(player, honey, endGame);
-		FlxG.overlap(player, flower, collectFlower);
+		
+		if (flower.isPresent) {
+			trace("Flower exists!");
+			if (FlxG.collide(player, flower)) {
+				trace("got it!");
+				flower.collectFlower(player, flower);
+			}
+			// FlxG.overlap(player, flower, flower.collectFlower);
+		}
+		
 
 		for (i in 0...beeHive.length) 
         {
