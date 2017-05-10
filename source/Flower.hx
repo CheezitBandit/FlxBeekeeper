@@ -19,12 +19,14 @@ import flixel.math.FlxRandom;
     public function new(?X:Float=0, ?Y:Float=0, ?isPresent:Bool, ?SimpleGraphic:FlxGraphicAsset)
     {
         super(X, Y, SimpleGraphic);
-        makeGraphic(15, 30, FlxColor.PURPLE);
+        loadGraphic(AssetPaths.flower__png, false, 10, 20);
     }
     
     public static function collectFlower(plyr:Player, flwr:Flower):Void
     {
+        isPresent = false;
 		trace("Picked up flower");
+        flwr.destroy();
     }
 
     public override function update(elapsed:Float):Void

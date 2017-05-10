@@ -106,7 +106,7 @@ class PlayState extends FlxState
 
         flowerSpawn++;
         if (flowerSpawn == 500) {
-			flower = new Flower(rand.int(5, FlxG.width - 5), rand.int(5, FlxG.height - 5));
+			flower = new Flower(rand.int(5, FlxG.width - 20), rand.int(5, FlxG.height - 20));
 			Flower.isPresent = true;
 			FlxG.state.add(flower);
             trace("Flower added");
