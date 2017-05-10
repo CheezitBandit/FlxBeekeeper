@@ -23,3 +23,5 @@ The player will control the beekeeper through the use of the keyboard. Arrow key
 * Health bar - the beekeeper can only be stung a certain number of times. This must be tracked in a health bar visible to the player.
 * Flower count - the amount of flowers in the beekeeper's inventory must also be displayed to the player at all times.
 * Difficulty - a choice available in a menu, which pauses the game when brought up. This will essentially be a variablewhich determines how many bees spawn, how many stings it takes to kill the beekeeper, how quickly the bees move, and how many flowers spawn on the map.
+
+https://cheezitbandit.github.io/FlxBeekeeper/
