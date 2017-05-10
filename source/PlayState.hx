@@ -93,8 +93,6 @@ class PlayState extends FlxState
 		}, 3000);
     }
 
-
-
 	/**
 	 *  Update map based on changes made during the last cycle
 	 *  
@@ -108,21 +106,20 @@ class PlayState extends FlxState
 
         flowerSpawn++;
         if (flowerSpawn == 500) {
-            // flowerSpawn = 0;
 			flower = new Flower(rand.int(5, FlxG.width - 5), rand.int(5, FlxG.height - 5));
-			add(flower);
+			Flower.isPresent = true;
+			FlxG.state.add(flower);
             trace("Flower added");
         }
+		// if (flowerSpawn == 1000) {
+		// 	flower times out
+		// }
 
 		FlxG.overlap(player, honey, endGame);
-		
-		if (flower.isPresent) {
-			trace("Flower exists!");
-			if (FlxG.collide(player, flower)) {
-				trace("got it!");
-				flower.collectFlower(player, flower);
-			}
-			// FlxG.overlap(player, flower, flower.collectFlower);
+
+		//If flower object exists, check for player collision
+		if (Flower.isPresent) {
+			FlxG.overlap(player, flower, Flower.collectFlower);
 		}
 		
 
@@ -133,6 +130,10 @@ class PlayState extends FlxState
             if (dist < 75)
 			{
 				bee.beeDive(elapsed, player, beeHive.members[i]);
+			}
+			else if (Flower.isPresent && FlxMath.distanceBetween(flower, beeHive.members[i]) < 75)
+			{
+				bee.beeDive(elapsed, flower, beeHive.members[i]);
 			}
 			else
 			{
