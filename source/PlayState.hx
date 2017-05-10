@@ -19,6 +19,7 @@ class PlayState extends FlxState
 	private var hive:FlxSprite; // The hive design around the honeycomb target
 	private var text:FlxText; // The winning text object that is displayed on the screen
 	private var bee:Bee; // The enemy object
+	private var flower:Flower;
 	private var done:Bool;
 	public static var width:Int;
 	public static var height:Int;
@@ -35,6 +36,8 @@ class PlayState extends FlxState
 	public static var targetY:Int;
 	private var boundary:FlxSprite;
 	public static var worldBounds:FlxGroup;
+
+	public var flowerSpawn:Int = 0;
 	/**
 	 *  Creates the starting board with the honeycomb target, hive graphic, and player
 	 *  
@@ -44,18 +47,6 @@ class PlayState extends FlxState
 		super.create();
 		width = FlxG.width;
 		height = FlxG.height;
-
-		// var boundary = new FlxSprite();
-		// boundary.makeGraphic(FlxG.width, FlxG.height, FlxColor.TRANSPARENT);
-		// var lineStyle:LineStyle = { thickness: 8, color: FlxColor.YELLOW };
-		// FlxSpriteUtil.drawRect(boundary, 0, 0, FlxG.width, FlxG.height, FlxColor.TRANSPARENT, lineStyle);
-		// boundary.solid = boundary.immovable = true;
-		// add(boundary);
-
-		// FlxG.worldBounds.set(FlxG.width, FlxG.height);
-
-		// var worldBounds = FlxCollision.createCameraWall(FlxG.camera, false, 2, false);
-		// add(worldBounds);
 
 		beeHive = new FlxTypedGroup<Bee>();
 
@@ -75,7 +66,6 @@ class PlayState extends FlxState
 		}
 
 		player = new Player(300, 400);
-		// FlxSpriteUtil.bound(player, 0, FlxG.width, 0, FlxG.height);
 		add(player);
 	}
 	
@@ -103,6 +93,11 @@ class PlayState extends FlxState
 		}, 3000);
     }
 
+	public function collectFlower(player, flower):Void
+    {
+		trace("Picked up flower"); //Doesn't work
+    }
+
 	/**
 	 *  Update map based on changes made during the last cycle
 	 *  
@@ -114,10 +109,15 @@ class PlayState extends FlxState
 			return;
 		}
 
-		// FlxG.collide(worldBounds, player);
-		// FlxG.collide(worldBounds, beeHive);
+        flowerSpawn++;
+        if (flowerSpawn == 100) {
+            var flower = new Flower(rand.int(5, FlxG.width - 5), rand.int(5, FlxG.height - 5));
+            add(flower);
+            trace("Flower added");
+        }
 
 		FlxG.overlap(player, honey, endGame);
+		FlxG.overlap(player, flower, collectFlower);
 
 		for (i in 0...beeHive.length) 
         {
