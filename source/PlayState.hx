@@ -11,6 +11,7 @@ import flixel.math.FlxRandom;
 import flixel.math.FlxRect;
 import flixel.util.FlxColor;
 import flixel.util.FlxCollision;
+import flixel.input.keyboard.FlxKey;
 
 class PlayState extends FlxState
 {
@@ -23,7 +24,6 @@ class PlayState extends FlxState
 	private var done:Bool;
 	public static var width:Int;
 	public static var height:Int;
-
 	/**
 	 *  The use of the target X and Y variables allow the position of the honeycomb
 	 *  and the surrounding hive to be changed
@@ -37,7 +37,7 @@ class PlayState extends FlxState
 	private var boundary:FlxSprite;
 	public static var worldBounds:FlxGroup;
 
-	public var flowerSpawn:Int = 0;
+	public static var flowerSpawn:Int = 0;
 	/**
 	 *  Creates the starting board with the honeycomb target, hive graphic, and player
 	 *  
@@ -101,16 +101,32 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		if (done) {
+			Flower.isPresent = false;
 			return;
 		}
 
         flowerSpawn++;
-        if (flowerSpawn == 500) {
+		// If there is no flower present, the player has no flowers, and enough time has passed,
+		// spawn a new flower
+        if (!Flower.isPresent && Flower.numberFlowers == 0 && flowerSpawn == 500) {
 			flower = new Flower(rand.int(5, FlxG.width - 20), rand.int(5, FlxG.height - 20));
 			Flower.isPresent = true;
 			FlxG.state.add(flower);
             trace("Flower added");
         }
+		// Else if too much time has passed and the player has not collected a flower, destroy it
+		else if (Flower.isPresent && Flower.numberFlowers == 0 && flowerSpawn == 1500) {
+			flower.destroy(); //Does not work for dropped flower
+			flowerSpawn = 0;
+		}
+		// Else if the player has collected the flower, don't increment the clock
+		else if (!Flower.isPresent && Flower.numberFlowers == 1) {
+			flowerSpawn = 501;
+		}
+		// else { //Start the clock again after the player drops the flower
+		trace(flowerSpawn);
+		// }
+
 		// if (flowerSpawn == 1000) {
 		// 	flower times out
 		// }
@@ -122,18 +138,31 @@ class PlayState extends FlxState
 			FlxG.overlap(player, flower, Flower.collectFlower);
 		}
 		
+		if (FlxG.keys.anyPressed([FlxKey.SPACE]) && Flower.numberFlowers > 0)
+        {
+            Flower.throwFlower(player);
+			trace("Flower: " + flower.x + " " + flower.y);
+        }
+		
 
 		for (i in 0...beeHive.length) 
         {
+			
 			FlxG.overlap(player, beeHive.members[i], endGame);
             dist = FlxMath.distanceBetween(player, beeHive.members[i]);
             if (dist < 75)
 			{
 				bee.beeDive(elapsed, player, beeHive.members[i]);
 			}
-			else if (Flower.isPresent && FlxMath.distanceBetween(flower, beeHive.members[i]) < 75)
+			else if (Flower.isPresent)
 			{
-				bee.beeDive(elapsed, flower, beeHive.members[i]);
+				if (FlxMath.distanceBetween(player, beeHive.members[i]) < 75) //<!--****This hneeds to change back to player when I get arround the invalid field access
+				{
+					bee.beeDive(elapsed, flower, beeHive.members[i]);
+				}
+				else {
+					bee.beeBuzz(elapsed, beeHive.members[i]);
+				}
 			}
 			else
 			{
