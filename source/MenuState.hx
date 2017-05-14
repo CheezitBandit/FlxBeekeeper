@@ -5,11 +5,11 @@ import flixel.FlxG;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-
+import flixel.system.FlxAssets.FlxGraphicAsset;
+import flixel.FlxSprite;
 
 class MenuState extends FlxState
 {
-
 
     override public function create():Void
     {
@@ -23,6 +23,21 @@ class MenuState extends FlxState
         title.screenCenter(X);
         add(title);
         
+        var sprite:FlxSprite = new FlxSprite(100, 0);
+        sprite.screenCenter(Y);
+        sprite.loadGraphic(AssetPaths.beekeeper__png, false, 10, 20);
+        add(sprite);
+
+        var beesprite:FlxSprite = new FlxSprite(500, 0);
+        beesprite.screenCenter(Y);
+        beesprite.loadGraphic(AssetPaths.bee__png, false, 10, 20);
+        add(beesprite);
+
+        var beesprite1:FlxSprite = new FlxSprite(550, 0);
+        beesprite1.screenCenter(Y);
+        beesprite1.loadGraphic(AssetPaths.bee__png, false, 10, 20);
+        add(beesprite1);
+
         var text:FlxText = new FlxText(0, 200, 0, "Difficulty:", 18, true);
         text.screenCenter(X);
         add(text);
