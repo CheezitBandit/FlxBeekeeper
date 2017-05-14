@@ -18,7 +18,7 @@ import flixel.input.keyboard.FlxKey;
     {
         super(X, Y, SimpleGraphic);
 
-        makeGraphic(20, 20, FlxColor.WHITE);
+       loadGraphic(AssetPaths.beekeeper__png, false, 10, 20);
     }
 
     /**
