@@ -23,6 +23,10 @@ class MenuState extends FlxState
         title.screenCenter(X);
         add(title);
         
+        var instructions:FlxButton = new FlxButton(0, 125, "Instructions", InstructionState);
+        instructions.screenCenter(X);
+        add(instructions);
+        
         var sprite:FlxSprite = new FlxSprite(100, 0);
         sprite.screenCenter(Y);
         sprite.loadGraphic(AssetPaths.beekeeper__png, false, 10, 20);
@@ -53,6 +57,11 @@ class MenuState extends FlxState
         var hard:FlxButton = new FlxButton(0, 350, "Hard", HardPlayState);
         hard.screenCenter(X);
         add(hard);
+    }
+
+    function InstructionState():Void
+    {
+        FlxG.switchState(new InstructionState());
     }
 
     function EasyPlayState():Void
