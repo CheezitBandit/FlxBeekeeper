@@ -44,21 +44,19 @@ import flixel.group.FlxGroup;
         bee.x += newX;
         bee.y += newY;
         // Ensure bee is within bounds of window
-        if (bee.x > 1200 || bee.x < 0)
+       if (bee.x > (PlayState.width - 20) || bee.x < 0)
         {
             bee.x -= newX;
         }
-        if (bee.y > 800 || bee.y < 0)
+        if (bee.y > (PlayState.height - 20) || bee.y < 0)
         {
-            bee.y -= newY;
+            bee.y -=newY;
         }
     }
 
 
-    public function beeDive(elapsed:Float, player:Player, bee:Bee):Void
+    public function beeDive(elapsed:Float, player:FlxSprite, bee:Bee):Void
     {
-        trace("So close!");
-
         difX = player.x - bee.x;
         difY = player.y - bee.y;
 
@@ -91,13 +89,13 @@ import flixel.group.FlxGroup;
         bee.x += newX;
         bee.y += newY;
         // Ensure bee is within bounds of window
-        if (bee.x > 1500 || bee.x < 0)
+       if (bee.x > (PlayState.width - 20) || bee.x < 0)
         {
             bee.x -= newX;
         }
-        if (bee.y > 1000 || bee.y < 0)
+        if (bee.y > (PlayState.height - 20) || bee.y < 0)
         {
-            bee.y -= newY;
+            bee.y -=newY;
         }
     }
 

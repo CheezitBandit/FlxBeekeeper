@@ -24,4 +24,13 @@ The player will control the beekeeper through the use of the keyboard. Arrow key
 * Flower count - the amount of flowers in the beekeeper's inventory must also be displayed to the player at all times.
 * Difficulty - a choice available in a menu, which pauses the game when brought up. This will essentially be a variablewhich determines how many bees spawn, how many stings it takes to kill the beekeeper, how quickly the bees move, and how many flowers spawn on the map.
 
+Must put together README for repository:
+*Title
+*Summary
+*Oveview of game
+*Screenshot
+*version/playhere
+*How to build/play project
+
 https://cheezitbandit.github.io/FlxBeekeeper/
+
