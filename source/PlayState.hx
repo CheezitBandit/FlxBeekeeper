@@ -1,6 +1,5 @@
 package;
 
-import flixel.util.FlxSpriteUtil;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
@@ -8,9 +7,6 @@ import flixel.FlxG;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxRandom;
-import flixel.math.FlxRect;
-import flixel.util.FlxColor;
-import flixel.util.FlxCollision;
 import flixel.input.keyboard.FlxKey;
 
 class PlayState extends FlxState
@@ -60,7 +56,6 @@ class PlayState extends FlxState
 		for (i in 0...hiveSize)
 		{
 			bee = new Bee(targetX + (rand.int(-5, 5)*20), targetY + (rand.int(-1, 5)*20));
-			trace("Bee" + i + " x " + bee.x + " y " + bee.y);
 			add(bee);
 			beeHive.add(bee);
 		}
@@ -102,6 +97,7 @@ class PlayState extends FlxState
 	{
 		if (done) {
 			Flower.isPresent = false;
+			flowerSpawn = 0;
 			return;
 		}
 
@@ -110,38 +106,33 @@ class PlayState extends FlxState
 		// spawn a new flower
         if (!Flower.isPresent && Flower.numberFlowers == 0 && flowerSpawn == 500) {
 			flower = new Flower(rand.int(5, FlxG.width - 20), rand.int(5, FlxG.height - 20));
+			Flower.beenDropped = false;
 			Flower.isPresent = true;
-			FlxG.state.add(flower);
-            trace("Flower added");
+			add(flower);
         }
 		// Else if too much time has passed and the player has not collected a flower, destroy it
 		else if (Flower.isPresent && Flower.numberFlowers == 0 && flowerSpawn == 1500) {
-			flower.destroy(); //Does not work for dropped flower
+			flower.destroy();
+			Flower.isPresent = false;
 			flowerSpawn = 0;
 		}
 		// Else if the player has collected the flower, don't increment the clock
 		else if (!Flower.isPresent && Flower.numberFlowers == 1) {
 			flowerSpawn = 501;
 		}
-		// else { //Start the clock again after the player drops the flower
-		trace(flowerSpawn);
-		// }
-
-		// if (flowerSpawn == 1000) {
-		// 	flower times out
-		// }
 
 		FlxG.overlap(player, honey, endGame);
 
 		//If flower object exists, check for player collision
-		if (Flower.isPresent) {
+		if (Flower.isPresent && !Flower.beenDropped) {
 			FlxG.overlap(player, flower, Flower.collectFlower);
 		}
 		
 		if (FlxG.keys.anyPressed([FlxKey.SPACE]) && Flower.numberFlowers > 0)
         {
             Flower.throwFlower(player);
-			trace("Flower: " + flower.x + " " + flower.y);
+			flower = new Flower(player.x, player.y, true);
+        	add(flower);
         }
 		
 
@@ -156,7 +147,7 @@ class PlayState extends FlxState
 			}
 			else if (Flower.isPresent)
 			{
-				if (FlxMath.distanceBetween(player, beeHive.members[i]) < 75) //<!--****This hneeds to change back to player when I get arround the invalid field access
+				if (FlxMath.distanceBetween(flower, beeHive.members[i]) < 75)
 				{
 					bee.beeDive(elapsed, flower, beeHive.members[i]);
 				}

@@ -42,21 +42,18 @@ class MenuState extends FlxState
 
     function EasyPlayState():Void
     {
-        trace("easy");
         PlayState.hiveSize = 2;
         FlxG.switchState(new PlayState());
     }
 
     function MediumPlayState():Void
     {
-        trace("medium");
         PlayState.hiveSize = 4;
         FlxG.switchState(new PlayState());
     }
 
     function HardPlayState():Void
     {
-        trace("hard");
         PlayState.hiveSize = 6;
         FlxG.switchState(new PlayState());
     }
