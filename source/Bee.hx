@@ -36,6 +36,12 @@ import flixel.group.FlxGroup;
         loadGraphic(AssetPaths.bee__png, false, 10, 20);
     }
 
+    /**
+     *  Bee movement when the bee is randomly moving
+     *  
+     *  @param   elapsed is the amount of time elapsed
+     *  @param   bee is the specific bee object which is being moved
+     */
     public function beeBuzz(elapsed, bee:Bee):Void
     {
         newX = rand.int(-3, 3);
@@ -54,7 +60,11 @@ import flixel.group.FlxGroup;
         }
     }
 
-
+    /**
+     *  Bee movement when the bee is moving towards a player or flower
+     *  
+     *  @param   player is the FlxSprite (player or flower) towards which the bee is moving
+     */
     public function beeDive(elapsed:Float, player:FlxSprite, bee:Bee):Void
     {
         difX = player.x - bee.x;

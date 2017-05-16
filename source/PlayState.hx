@@ -16,24 +16,21 @@ class PlayState extends FlxState
 	private var hive:FlxSprite; // The hive design around the honeycomb target
 	private var text:FlxText; // The winning text object that is displayed on the screen
 	private var bee:Bee; // The enemy object
-	private var flower:Flower;
-	private var done:Bool;
-	public static var width:Int;
-	public static var height:Int;
+	private var flower:Flower; // An optional object which will attract bees
+	private var done:Bool; // Determines if the game is over
+	public static var width:Int; // Static width of the playspace (screen)
+	public static var height:Int; // Static height of the playspace (screen)
 	/**
 	 *  The use of the target X and Y variables allow the position of the honeycomb
 	 *  and the surrounding hive to be changed
 	 */
-	private var dist:Int;
-	public static var hiveSize:Int;
-	public var beeHive:FlxTypedGroup<Bee>;
+	private var dist:Int; // Used with FlxMath to determine distance between bees, flowers, and player
+	public static var hiveSize:Int; // Tracks size of beehive
+	public var beeHive:FlxTypedGroup<Bee>; // The group of bees to iterate through
     public var rand:FlxRandom = new FlxRandom();
 	public static var targetX:Int;
 	public static var targetY:Int;
-	private var boundary:FlxSprite;
-	public static var worldBounds:FlxGroup;
-
-	public static var flowerSpawn:Int = 0;
+	public static var flowerSpawn:Int = 0; // No flower has spawned
 	/**
 	 *  Creates the starting board with the honeycomb target, hive graphic, and player
 	 *  
@@ -95,6 +92,7 @@ class PlayState extends FlxState
 	 */
 	override public function update(elapsed:Float):Void
 	{
+		trace(flowerSpawn);
 		if (done) {
 			Flower.isPresent = false;
 			flowerSpawn = 0;
