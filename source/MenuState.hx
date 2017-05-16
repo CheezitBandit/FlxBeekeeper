@@ -58,24 +58,36 @@ class MenuState extends FlxState
         hard.screenCenter(X);
         add(hard);
     }
-
+    /**
+     *  When the button is pressed, go to the state with the instructions
+     *  
+     */
     function InstructionState():Void
     {
         FlxG.switchState(new InstructionState());
     }
-
+    /**
+     *  When the button is pressed, go to the easy version of the playstate
+     *  
+     */
     function EasyPlayState():Void
     {
         PlayState.hiveSize = 2;
         FlxG.switchState(new PlayState());
     }
-
+    /**
+     *  When the button is pressed, go to the medium version of the playstate
+     *  
+     */
     function MediumPlayState():Void
     {
         PlayState.hiveSize = 4;
         FlxG.switchState(new PlayState());
     }
-
+    /**
+     *  When the button is pressed, go to the hard version of the playstate
+     *  
+     */
     function HardPlayState():Void
     {
         PlayState.hiveSize = 6;

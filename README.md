@@ -1,36 +1,21 @@
-# CSC 303 Final Project Proposal
+# Beekeeper
 
-Jess Geiger
+A single player game based on one of the scenarios in the Tron arcade game, created
+by Jess Geiger (Missouri State University) for CSC 303.
 
-## Beehive
+## Overview
 
-Beehive is a new game that I will be making for this submission, based on one of the four game-types from the Tron arcade machine. A player-controlled beekeeper must reach the beehive without being stung (or at least, not too many times!).
+You are a beekeeper, and must harvest the honey from the beehive without being stung. The bees move their hive from time to time, so you'll have to stay on your toes. The bees are also attracted to flowers, and if you find one, you can use it to distract them from stinging you.
 
-The beekeeper will be spawned at a starting position on the map. The hive will be on the opposite side of the map, and near it will spawn a different number of bees based on the difficulty. The bees will move randomly around the map.If they come within a certain distance of the beekeeper, they will "notice" the beekeeper and attempt to sting. The beekeeper must evade the bees, which can be helped by a certain number of flowers that the beekeeper has in their inventory. When thrown, the flowers attract bees towards them and away from the beekeeper.
+## Controls
+* Use the arrow keys to move in the corresponding directions: UP, DOWN, LEFT, RIGHT.
+* Press the SHIFT key to run!
+* Touching a flower will automatically pick it up. To drop it, press the SPACE bar.
 
-* Win condition - the beekeeper must reach the honeycomb in the center of the beehive.
-* Lose condition - the beekeeper is stung a certain number of times (will figured out what's best during play testing)
+## Playing Offline
+* You must have Haxe and HaxeFlixel installed on your computer, with the appropriate setup for the lime command prompt.
+* Clone the repository and download it to your local computer.
+* Input "lime test neko" to the command line in the FlxBeekeeper folder to build and run the game.
 
-The player will control the beekeeper through the use of the keyboard. Arrow keys will control direction, and the space bar will be used to throw flowers.
-
-**Features:**
-
-* Beekeeper - controlled by the player through use of keyboard. Has the ability to move in directions and use distraction.
-* Bees - enemies with random movement and randomized spawning, within certain distance of hive. Ability to sting the beekeeper by coming in contact. Will approach beekeeper or flower when either is within a certain distance of the bee.
-* Flower - an item which can be thrown by the beekeeper to distract the bees. The beekeeper will start with a certain number of flowers, and one or two more will be available for collection on the map.
-* Beehive - a circular area on the map around which the bees will spawn.
-* Honeycomb - the object within the beehive which marks the finishing point for the beekeeper.
-* Health bar - the beekeeper can only be stung a certain number of times. This must be tracked in a health bar visible to the player.
-* Flower count - the amount of flowers in the beekeeper's inventory must also be displayed to the player at all times.
-* Difficulty - a choice available in a menu, which pauses the game when brought up. This will essentially be a variablewhich determines how many bees spawn, how many stings it takes to kill the beekeeper, how quickly the bees move, and how many flowers spawn on the map.
-
-Must put together README for repository:
-*Title
-*Summary
-*Oveview of game
-*Screenshot
-*version/playhere
-*How to build/play project
-
-https://cheezitbandit.github.io/FlxBeekeeper/
-
+## Contact
+[@CheezitBandit](https://github.com/CheezitBandit) - Jess Geiger, designer and programmer
