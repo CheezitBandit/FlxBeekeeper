@@ -7,6 +7,12 @@ by Jess Geiger (Missouri State University) for CSC 303.
 
 You are a beekeeper, and must harvest the honey from the beehive without being stung. The bees move their hive from time to time, so you'll have to stay on your toes. The bees are also attracted to flowers, and if you find one, you can use it to distract them from stinging you.
 
+Give it a shot!
+
+
+![Screenshot](/BeekeeperScreencap.png?raw=true)
+
+
 ## Controls
 * Use the arrow keys to move in the corresponding directions: UP, DOWN, LEFT, RIGHT.
 * Press the SHIFT key to run!
