@@ -10,7 +10,7 @@ You are a beekeeper, and must harvest the honey from the beehive without being s
 Give it a shot!
 
 
-![Screenshot](/BeekeeperScreencap.png?raw=true)
+![Screenshot](/docs/BeekeeperScreencap.png?raw=true)
 
 
 ## Controls
