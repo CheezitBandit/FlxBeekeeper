@@ -92,7 +92,6 @@ class PlayState extends FlxState
 	 */
 	override public function update(elapsed:Float):Void
 	{
-		trace(flowerSpawn);
 		if (done) {
 			Flower.isPresent = false;
 			flowerSpawn = 0;
